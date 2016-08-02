@@ -10,7 +10,7 @@ from xml.etree import ElementTree as etree
 from lektor.utils import get_dependent_url, portable_popen, locate_executable
 from lektor.reporter import reporter
 from lektor.uilink import BUNDLE_BIN_PATH
-from lektor._compat import iteritems, text_type
+from lektor._compat import iteritems, text_type, PY2
 
 
 # yay shitty library
@@ -382,12 +382,13 @@ def make_thumbnail(ctx, source_image, source_url_path, width, height=None,
     suffix = get_suffix(width, height, crop=crop)
     dst_url_path = get_dependent_url(source_url_path, suffix,
                                      ext=get_thumbnail_ext(source_image))
+    report_height = height
 
     if height is None:
         # we can only crop if a height is specified
         crop = False
-        height = computed_height(source_image, width, source_width,
-                                 source_height)
+        report_height = computed_height(source_image, width, source_width,
+                                        source_height)
 
     # If we are dealing with an actual svg image, we do not actually
     # resize anything, we just return it.  This is not ideal but it's
@@ -401,7 +402,7 @@ def make_thumbnail(ctx, source_image, source_url_path, width, height=None,
         process_image(ctx, source_image, artifact.dst_filename,
                       width, height, crop=crop)
 
-    return Thumbnail(dst_url_path, width, height)
+    return Thumbnail(dst_url_path, width, report_height)
 
 
 class Thumbnail(object):
@@ -417,3 +418,6 @@ class Thumbnail(object):
 
     def __unicode__(self):
         return posixpath.basename(self.url_path)
+
+    if not PY2:
+        __str__ = __unicode__
