@@ -28,7 +28,24 @@
     "react-dom": "^0.14.1",
     "style-loader": "^0.8.3",
     "webpack": "^1.12.2",
-    "history": "^1.13.0"
+    "history": "^1.13.0",
+
+    "chai": "^3.5.0",
+    "enzyme": "^2.4.1",
+    "karma": "^1.1.1",
+    "karma-chai": "^0.1.0",
+    "karma-mocha": "^1.1.1",
+    "karma-phantomjs-launcher": "^1.0.1",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.26",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.5.3",
+    "phantomjs": "^2.1.7",
+    "phantomjs-polyfill": "0.0.2",
+    "react": "^15.2.1",
+    "react-addons-test-utils": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "webpack": "^1.13.1"
   },
   "dependencies": {
     "runas": "^3.1.1"
