@@ -1,17 +1,10 @@
 language: python
 python:
   - "2.7"
-  - "3.5"
 
 cache:
   directories:
     - lektor/admin/node_modules
-
-before_install:
-  - curl -s -o $HOME/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.4/nvm.sh
-  - source $HOME/.nvm/nvm.sh
-  - nvm install stable
-  - node --version
 
 addons:
   firefox: "47.0.1"
@@ -21,18 +14,22 @@ before_install:
   - source $HOME/.nvm/nvm.sh
   - nvm install stable
   - node --version
-  - pip install -U pip pytest
+  - pip install -U pip pytest pytest-mock
   - pip install travis
-  - pip install pytest-splinter==1.7.5
+  - make build-js
 
 install:
   - pip install --editable . .[test]
-  - travis_retry make build-js
+  - travis_retry
 
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - sleep 4
+
+
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
 
 script: make test
 

@@ -4,19 +4,15 @@ import pytest
 import shutil
 import subprocess
 import tempfile
-
+import mock
 from pytest_server_fixtures.http import SimpleHTTPTestServer
 
 @pytest.yield_fixture(scope='function')
-def simple_http_server():
-    def hooray_its_up(self):
-        return True
-    original_check_server_up = SimpleHTTPTestServer.check_server_up
-    SimpleHTTPTestServer.check_server_up = hooray_its_up
+def simple_http_server(mocker):
+    mocker.patch.object(SimpleHTTPTestServer, "check_server_up", return_value=True)
     with SimpleHTTPTestServer() as s:
         s.start()
         yield s
-    SimpleHTTPTestServer.check_server_up = original_check_server_up
 
 
 @pytest.fixture(scope='function')

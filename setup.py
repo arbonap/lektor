@@ -3,7 +3,8 @@ from setuptools import setup, find_packages
 tests_require=[
     'pytest',
     'pytest-flask',
-    'pytest-server-fixtures'
+    'pytest-server-fixtures',
+    'pytest-splinter'
 ]
 
 setup(

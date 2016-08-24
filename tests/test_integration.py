@@ -1,18 +1,12 @@
 import pytest
-
+import mock
 from lektor.admin.webui import WebUI
-from lektor.publisher import RsyncPublisher
+# from lektor.publisher import RsyncPublisher
 
 @pytest.yield_fixture(scope='function')
-def app(request, scratch_env, pad, simple_http_server):
-    original_publish = RsyncPublisher.publish
-    def fake_publish(self, target_url, credentials=None, **extra):
-        pass
-    RsyncPublisher.publish = fake_publish
-    try:
-        yield WebUI(scratch_env, output_path=simple_http_server.document_root)
-    finally:
-        RsyncPublisher.publish = original_publish
+def app(mocker, scratch_env, simple_http_server):
+    mocker.patch("lektor.publisher.RsyncPublisher.publish")
+    yield WebUI(scratch_env, output_path=simple_http_server.document_root)
 
 def test_publication(live_server, browser, simple_http_server):
     browser.visit(live_server.url())
