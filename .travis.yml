@@ -20,7 +20,7 @@ before_install:
   - source $HOME/.nvm/nvm.sh
   - nvm install stable
   - node --version
-  - pip install -U pip pytest
+  - pip install -U pip pytest pytest-mock
   - pip install travis
   - make build-js
 
