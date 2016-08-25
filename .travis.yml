@@ -18,14 +18,14 @@ before_install:
   - pip install -U pip 
   - pip install pytest==2.9.2
   - pip install pytest-mock
-  - pip install https://github.com/manahl/pytest-plugins/archive/v1.2.1.tar.gz
   - pip install travis
   - make build-js
 
 install:
   - pip install --editable . .[test]
-  # - sed -i 's/import cmdline/from . import cmdline/' /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages/pytest_shutil/workspace.py
-  # - sed -i 's/RqlRuntimeError, err/RqlRuntimeError as err/' /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages/pytest_server_fixtures/rethink.py
+  # hotfixes for py3 compatibility for travis 
+  - sed -i 's/import cmdline/from . import cmdline/' /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages/pytest_shutil/workspace.py
+  - sed -i 's/RqlRuntimeError, err/RqlRuntimeError as err/' /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages/pytest_server_fixtures/rethink.py
 
 before_script:
   - export DISPLAY=:99.0
