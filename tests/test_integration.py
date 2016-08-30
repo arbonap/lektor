@@ -11,7 +11,7 @@ def app(mocker, scratch_env, simple_http_server):
     yield WebUI(scratch_env, output_path=simple_http_server.document_root)
 
 
-@pytest.mark.skipif(sys.version_info > (2,7),
+@pytest.mark.skipif(sys.version_info > (3,0),
                     reason="python 3 currently not compatible pytest plugin")
 def test_publication(live_server, browser, simple_http_server):
     browser.visit(live_server.url())
